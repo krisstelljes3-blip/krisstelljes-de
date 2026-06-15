@@ -51,9 +51,9 @@
   .micro{font-size:14.5px; color:var(--muted); margin:0}
   .scrolllink{display:inline-block; margin-top:18px; font-size:14px; color:var(--accent); text-decoration:none; border-bottom:1px solid transparent}
   .scrolllink:hover{border-bottom-color:var(--accent)}
-  .portrait{position:relative; border-radius:20px; overflow:hidden; border:1px solid var(--line2);
-    background:linear-gradient(165deg,#eef1f8,#cdd6ea); box-shadow:0 30px 80px rgba(0,0,0,.55)}
-  .portrait img{width:100%; height:auto; display:block}
+  .portrait{position:relative}
+  .portrait img{width:100%; height:auto; display:block; border-radius:20px; border:1px solid var(--line2);
+    box-shadow:0 30px 80px rgba(0,0,0,.55)}
 
   /* Bekannt aus */
   .press{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; display:flex; align-items:center; gap:26px; flex-wrap:wrap}
@@ -77,7 +77,7 @@
   @media(max-width:760px){
     header.hero{grid-template-columns:1fr; gap:28px; padding:38px 0 32px}
     .portrait{order:-1}
-    .portrait img{max-height:440px; width:100%; object-fit:contain}
+    .portrait img{max-height:380px; width:100%; object-fit:cover}
     .press{gap:16px}
   }
 </style>
@@ -100,16 +100,13 @@
       <a class="scrolllink" href="#about">Meine Geschichte und woran ich gerade arbeite ↓</a>
     </div>
     <div class="portrait">
-      <img src="kris-hero.png" alt="Kris Stelljes" width="550" height="550" loading="eager"
-           onerror="this.onerror=null;this.src='https://onecdn.io/media/99f1bc20-ea6e-448f-a569-b4a407965f5d/sm2x'">
+      <img src="https://onecdn.io/media/99f1bc20-ea6e-448f-a569-b4a407965f5d/sm2x" alt="Kris Stelljes" width="700" height="875" loading="eager">
     </div>
   </header>
 
   <div class="press">
     <span class="press-label">Bekannt aus</span>
-    <img class="press-logos" src="presse-logos.png" alt="Bekannt aus: wallstreet:online, n-tv, Finanzblatt, business-on.de"
-         onerror="this.style.display='none';document.getElementById('press-fallback').style.display='flex'">
-    <div id="press-fallback" class="press-fallback" style="display:none">
+    <div class="press-fallback">
       <span>wallstreet:online</span><span>n-tv</span><span>Finanzblatt</span><span>business-on.de</span>
     </div>
   </div>
