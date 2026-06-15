@@ -2,9 +2,10 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "redirects": [
+    { "source": "/(.*)", "has": [{ "type": "host", "value": "go.krisstelljes.de" }], "destination": "https://krisstelljes.de/?source=legacy-youtube", "permanent": false },
     { "source": "/impressum-us", "destination": "/impressum", "permanent": true },
     { "source": "/datenschutz-erklaerung", "destination": "/datenschutz", "permanent": true },
-    { "source": "/beweis-video", "destination": "/", "permanent": false },
-    { "source": "/beweis-video-2", "destination": "/", "permanent": false }
+    { "source": "/beweis-video", "destination": "/?source=legacy-youtube", "permanent": false },
+    { "source": "/beweis-video-:rest", "destination": "/?source=legacy-youtube", "permanent": false }
   ]
 }
