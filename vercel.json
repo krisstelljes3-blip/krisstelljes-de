@@ -1,0 +1,12 @@
+{
+  "$comment": "Vercel-Config fuer die HAUPTSEITE krisstelljes.de (statisch). cleanUrls macht /impressum statt /impressum.html. Redirects fangen bekannte alte Pfade der alten Domain ab.",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/impressum-us", "destination": "/impressum", "permanent": true },
+    { "source": "/datenschutz-erklaerung", "destination": "/datenschutz", "permanent": true },
+    { "source": "/beweis-video", "destination": "/", "permanent": false },
+    { "source": "/beweis-video-2", "destination": "/", "permanent": false }
+  ],
+  "$todo": "Weitere alte /www-Pfade aus Server-Logs/Search Console ergaenzen, sobald verfuegbar. permanent:false (302) waehrend der Validierung, spaeter ggf. auf true (301)."
+}
