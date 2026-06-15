@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- ====================================================================
+     krisstelljes.de — Personal-Brand-Übergangsseite (Dark, OHNE Formular)
+     STAGING: noindex aktiv. VOR GO-LIVE auf "index,follow" stellen.
+     BILDER: in /assets ablegen (self-hosted):
+       - assets/kris-hero.png       (Hero-Freisteller; Fallback: onecdn-Desk)
+       - assets/presse-logos.png    ("Bekannt aus"-Leiste; Fallback: Text)
+     Solange die Dateien fehlen, greifen die Fallbacks automatisch.
+==================================================================== -->
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://krisstelljes.de/">
 <title>Kris Stelljes — aus Wissen wird ein Angebot, das verkauft</title>
@@ -43,14 +51,14 @@
   .micro{font-size:14.5px; color:var(--muted); margin:0}
   .scrolllink{display:inline-block; margin-top:18px; font-size:14px; color:var(--accent); text-decoration:none; border-bottom:1px solid transparent}
   .scrolllink:hover{border-bottom-color:var(--accent)}
-  .portrait{position:relative}
-  .portrait img{width:100%; height:auto; display:block; border-radius:20px; border:1px solid var(--line2);
-    box-shadow:0 30px 80px rgba(0,0,0,.55)}
+  .portrait{position:relative; border-radius:20px; overflow:hidden; border:1px solid var(--line2);
+    background:linear-gradient(165deg,#eef1f8,#cdd6ea); box-shadow:0 30px 80px rgba(0,0,0,.55)}
+  .portrait img{width:100%; height:auto; display:block}
 
   /* Bekannt aus */
   .press{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; display:flex; align-items:center; gap:26px; flex-wrap:wrap}
   .press-label{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); flex:0 0 auto}
-  .press-logos{max-height:30px; width:auto; filter:grayscale(1) brightness(1.7) contrast(.9); opacity:.92}
+  .press-logos{max-height:48px; width:auto; background:#fff; border-radius:8px; padding:7px 14px}
   .press-fallback{display:flex; gap:24px; flex-wrap:wrap; align-items:center; color:#cdd2df; font-weight:600; font-size:16px; opacity:.85}
   .press-fallback span{white-space:nowrap}
 
@@ -69,7 +77,7 @@
   @media(max-width:760px){
     header.hero{grid-template-columns:1fr; gap:28px; padding:38px 0 32px}
     .portrait{order:-1}
-    .portrait img{max-height:380px; width:100%; object-fit:cover}
+    .portrait img{max-height:440px; width:100%; object-fit:contain}
     .press{gap:16px}
   }
 </style>
@@ -92,14 +100,14 @@
       <a class="scrolllink" href="#about">Meine Geschichte und woran ich gerade arbeite ↓</a>
     </div>
     <div class="portrait">
-      <img src="assets/kris-hero.png" alt="Kris Stelljes" width="700" height="875" loading="eager"
+      <img src="kris-hero.png" alt="Kris Stelljes" width="550" height="550" loading="eager"
            onerror="this.onerror=null;this.src='https://onecdn.io/media/99f1bc20-ea6e-448f-a569-b4a407965f5d/sm2x'">
     </div>
   </header>
 
   <div class="press">
     <span class="press-label">Bekannt aus</span>
-    <img class="press-logos" src="assets/presse-logos.png" alt="Bekannt aus: wallstreet:online, n-tv, Finanzblatt, business-on.de"
+    <img class="press-logos" src="presse-logos.png" alt="Bekannt aus: wallstreet:online, n-tv, Finanzblatt, business-on.de"
          onerror="this.style.display='none';document.getElementById('press-fallback').style.display='flex'">
     <div id="press-fallback" class="press-fallback" style="display:none">
       <span>wallstreet:online</span><span>n-tv</span><span>Finanzblatt</span><span>business-on.de</span>
