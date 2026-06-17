@@ -3,29 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- ====================================================================
-     krisstelljes.de — Personal-Brand-Übergangsseite (Dark, OHNE Formular)
-     STAGING: noindex aktiv. VOR GO-LIVE auf "index,follow" stellen.
-     BILDER: in /assets ablegen (self-hosted):
-       - assets/kris-hero.png       (Hero-Freisteller; Fallback: onecdn-Desk)
-       - assets/presse-logos.png    ("Bekannt aus"-Leiste; Fallback: Text)
-     Solange die Dateien fehlen, greifen die Fallbacks automatisch.
-==================================================================== -->
 <meta name="robots" content="index,follow">
 <link rel="canonical" href="https://krisstelljes.de/">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>Kris Stelljes — aus Wissen wird ein Angebot, das verkauft</title>
-<meta name="description" content="Ich zeige Unternehmern und Experten, wie sie aus ihrem Wissen ein klares digitales Angebot machen, es verständlich vermarkten und moderne KI sinnvoll dafür einsetzen.">
+<title>Kris Stelljes — Vom Fließband zum Millionär. Jetzt baue ich offen wieder auf.</title>
+<meta name="description" content="2× bester Online-Marketer des Jahres, 200.000+ erreicht. Ich zeige dir, wie aus deinem Wissen ein Angebot wird, das man in drei Sekunden versteht und als relevant erkennt. Ohne Hype. Newsletter: Der Wiederaufbau.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Kris Stelljes — aus Wissen wird ein Angebot, das verkauft">
-<meta property="og:description" content="Mach aus deinem Wissen ein Angebot, das Menschen verstehen — und kaufen.">
+<meta property="og:title" content="Kris Stelljes — Vom Fließband zum Millionär. Jetzt baue ich offen wieder auf.">
+<meta property="og:description" content="Ich zeige dir, wie aus deinem Wissen ein Angebot wird, das man in drei Sekunden versteht und als relevant erkennt. Ohne Hype. Newsletter: Der Wiederaufbau.">
 <meta property="og:url" content="https://krisstelljes.de/">
 <meta property="og:site_name" content="Kris Stelljes">
 <meta property="og:locale" content="de_DE">
 <meta property="og:image" content="https://krisstelljes.de/kris-hero.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Kris Stelljes — aus Wissen wird ein Angebot, das verkauft">
-<meta name="twitter:description" content="Mach aus deinem Wissen ein Angebot, das Menschen verstehen — und kaufen.">
+<meta name="twitter:title" content="Kris Stelljes — Vom Fließband zum Millionär. Jetzt baue ich offen wieder auf.">
+<meta name="twitter:description" content="Ich zeige dir, wie aus deinem Wissen ein Angebot wird, das man in drei Sekunden versteht und als relevant erkennt. Newsletter: Der Wiederaufbau.">
 <meta name="twitter:image" content="https://krisstelljes.de/kris-hero.png">
 <meta name="author" content="Kris Stelljes">
 <script type="application/ld+json">
@@ -47,136 +39,146 @@
 <meta name="color-scheme" content="dark">
 <style>
   :root{
-    --bg:#0b0d12; --panel:#141925; --ink:#f3f5f9; --muted:#9aa4b6;
-    --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.16);
-    --accent:#8c9eff; --accent-strong:#6c7cff;
-    --maxw:1040px; --serif:Georgia,"Times New Roman",serif;
+    --bg:#0b0d12; --bg2:#141925; --ink:#f3f5f9; --muted:#9aa4b6;
+    --line:rgba(255,255,255,.09);
+    --accent:#8c9eff; --accent-strong:#6c7cff; --maxw:760px;
   }
-  *{box-sizing:border-box}
-  html,body{margin:0;padding:0}
-  body{background:var(--bg); color:var(--ink);
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--ink);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     line-height:1.6; -webkit-font-smoothing:antialiased;
-    background-image:radial-gradient(900px 500px at 78% -8%, rgba(108,124,255,.16), transparent 60%);
-    background-repeat:no-repeat;}
-  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px}
-  a{color:var(--accent)}
-  .topbar{height:3px;background:linear-gradient(90deg,var(--accent-strong),#b3a0ff,transparent)}
-
-  #yt-note{display:none; background:rgba(140,158,255,.10); border-bottom:1px solid var(--line)}
-  #yt-note.on{display:block}
-  #yt-note .wrap{padding:13px 24px; font-size:14.5px; color:#cdd5ec}
-
-  header.hero{display:grid; grid-template-columns:1.12fr .88fr; gap:46px; align-items:center; padding:64px 0 44px}
-  .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; letter-spacing:.06em; color:var(--muted); margin:0 0 18px; text-transform:uppercase}
-  .eyebrow::before{content:""; width:22px; height:1px; background:var(--accent)}
-  .preline{font-size:15.5px; color:#aeb6c6; margin:0 0 14px; max-width:520px}
-  h1{font-family:var(--serif); font-weight:600; font-size:clamp(32px,4.6vw,50px); line-height:1.08; letter-spacing:-.01em; margin:0 0 20px}
-  h1 .hl{color:var(--accent)}
-  .sub{font-size:clamp(17px,2vw,20px); color:#c4cbda; margin:0 0 16px; max-width:560px}
-  .micro{font-size:14.5px; color:var(--muted); margin:0}
-  .scrolllink{display:inline-block; margin-top:18px; font-size:14px; color:var(--accent); text-decoration:none; border-bottom:1px solid transparent}
-  .scrolllink:hover{border-bottom-color:var(--accent)}
-  .portrait{position:relative}
-  .portrait img{width:100%; height:auto; display:block; border-radius:20px; border:1px solid var(--line2);
-    box-shadow:0 30px 80px rgba(0,0,0,.55)}
-
-  /* Bekannt aus */
-  .press{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:22px 0; display:flex; align-items:center; gap:26px; flex-wrap:wrap}
-  .press-label{font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); flex:0 0 auto}
-  .press-logos{max-height:48px; width:auto; background:#fff; border-radius:8px; padding:7px 14px}
-  .press-fallback{display:flex; gap:24px; flex-wrap:wrap; align-items:center; color:#cdd2df; font-weight:600; font-size:16px; opacity:.85}
-  .press-fallback span{white-space:nowrap}
-
-  section{padding:34px 0; border-top:1px solid var(--line)}
-  h2{font-family:var(--serif); font-weight:600; font-size:26px; letter-spacing:-.01em; margin:0 0 16px}
-  p{margin:0 0 14px; color:#c9cfdc}
-  ul.reasons{margin:0 0 16px; padding:0; list-style:none}
-  ul.reasons li{position:relative; padding-left:26px; margin:9px 0; color:#c9cfdc}
-  ul.reasons li::before{content:""; position:absolute; left:6px; top:11px; width:6px; height:6px; border-radius:50%; background:var(--accent)}
-  .kicker{color:var(--ink); font-weight:600}
-
-  footer{padding:30px 0 54px; border-top:1px solid var(--line); font-size:14px; color:var(--muted)}
-  footer a{color:var(--muted); text-decoration:none; margin-right:20px; border-bottom:1px solid transparent}
-  footer a:hover{color:var(--ink); border-bottom-color:var(--line2)}
-
-  @media(max-width:760px){
-    header.hero{grid-template-columns:1fr; gap:28px; padding:38px 0 32px}
-    .portrait{order:-1}
-    .portrait img{max-height:380px; width:100%; object-fit:cover}
-    .press{gap:16px}
+    background-image:radial-gradient(900px 500px at 78% -8%, rgba(108,124,255,.14), transparent 60%);
+    background-repeat:no-repeat;
   }
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  h1,h2,.serif{font-family:Georgia,"Times New Roman",serif;font-weight:600;letter-spacing:-.01em}
+  a{color:var(--accent);text-decoration:none}
+  .accent{color:var(--accent)}
+
+  .hero{padding:88px 0 56px;border-bottom:1px solid var(--line)}
+  .preadline{font-size:13px;letter-spacing:.07em;text-transform:uppercase;color:var(--accent);margin-bottom:20px}
+  .hero h1{font-size:clamp(34px,6vw,54px);line-height:1.12;margin-bottom:26px}
+  .hero h1 span{display:block}
+  .hero .sub{font-size:clamp(17px,2.4vw,20px);max-width:620px;color:#dfe4ee;margin-bottom:30px}
+  .btn{
+    display:inline-block;background:var(--accent-strong);color:#fff;font-weight:700;
+    padding:15px 30px;border-radius:8px;font-size:16px;
+    transition:transform .12s ease,opacity .12s ease;
+  }
+  .btn:hover{transform:translateY(-1px);opacity:.93}
+
+  .proofbar{padding:20px 0;border-bottom:1px solid var(--line);background:var(--bg2)}
+  .proofbar .wrap{display:flex;flex-wrap:wrap;gap:10px 26px;font-size:13px;color:var(--muted);letter-spacing:.04em;text-transform:uppercase}
+  .proofbar b{color:var(--ink);font-weight:600}
+
+  section.block{padding:60px 0;border-bottom:1px solid var(--line)}
+  section.block h2{font-size:clamp(24px,4vw,33px);margin-bottom:20px;line-height:1.2}
+  section.block p{margin-bottom:18px;color:#dfe4ee}
+  section.block p:last-child{margin-bottom:0}
+  .lead{font-size:20px}
+
+  .videowrap{position:relative;width:100%;aspect-ratio:16/9;background:var(--bg2);border:1px solid var(--line);border-radius:10px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .videowrap .ph{color:var(--muted);font-size:14px;text-align:center;padding:20px}
+  .videolabel{font-size:14px;color:var(--muted);margin-top:14px;font-style:italic}
+
+  .manifest .punch{color:var(--accent)}
+
+  .news{background:var(--bg2);padding:68px 0}
+  .news h2{font-size:clamp(26px,4.5vw,35px);margin-bottom:14px}
+  .news .promise{color:#dfe4ee;max-width:620px;margin-bottom:28px;font-size:18px}
+  form.signup{display:flex;flex-wrap:wrap;gap:12px;max-width:520px}
+  form.signup input{flex:1 1 260px;padding:15px 16px;border-radius:8px;border:1px solid var(--line);background:#0a0c10;color:var(--ink);font-size:16px}
+  form.signup input::placeholder{color:#6f7686}
+  .news .small{font-size:12px;color:var(--muted);margin-top:14px}
+
+  footer{padding:38px 0;font-size:13px;color:var(--muted)}
+  footer a{color:var(--muted)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:18px;justify-content:space-between;align-items:center}
+
+  @media(max-width:600px){ .hero{padding:60px 0 44px} section.block{padding:46px 0} }
 </style>
 </head>
 <body>
-<div class="topbar"></div>
-
-<div id="yt-note"><div class="wrap">
-  Du kommst wahrscheinlich über eines meiner älteren YouTube-Videos. Seitdem hat sich einiges verändert — hier siehst du, woran ich heute arbeite.
-</div></div>
-
-<div class="wrap">
 
   <header class="hero">
-    <div class="hero-text">
-      <p class="eyebrow">Kris Stelljes</p>
-      <p class="preline">Für Unternehmer & Experten, deren Wissen mehr wert ist, als es verkauft.</p>
-      <h1>Mach aus deinem Wissen ein Angebot, das Menschen verstehen — <span class="hl">und kaufen.</span></h1>
-      <p class="sub">Ich helfe dir, dein Wissen zu ordnen, in ein klares digitales Angebot zu gießen und so zu vermarkten, dass Interessenten in Sekunden verstehen, warum es für sie zählt.</p>
-      <p class="micro">15 Jahre Online-Marketing. Dann war's eine Weile ruhig. Jetzt baue ich wieder auf — und zeige offen, was funktioniert und was nicht.</p>
-      <a class="scrolllink" href="#about">Meine Geschichte und woran ich gerade arbeite ↓</a>
-    </div>
-    <div class="portrait">
-      <img src="https://onecdn.io/media/99f1bc20-ea6e-448f-a569-b4a407965f5d/sm2x" alt="Kris Stelljes" width="700" height="875" loading="eager">
+    <div class="wrap">
+      <p class="preadline">Für Experten, Berater und Dienstleister, deren Wissen mehr wert ist, als es verkauft.</p>
+      <h1>
+        <span>Vom Fließband zum Millionär.</span>
+        <span>Dann wurde es still.</span>
+        <span>Jetzt baue ich wieder öffentlich auf.</span>
+      </h1>
+      <p class="sub">Ich zeige dir, wie aus deinem Wissen ein Angebot wird, das man in drei Sekunden versteht und als relevant erkennt. 2× bester Online-Marketer des Jahres, 200.000+ erreicht — diesmal offen dokumentiert.</p>
+      <a class="btn" href="#newsletter">Newsletter lesen</a>
     </div>
   </header>
 
-  <div class="press">
-    <span class="press-label">Bekannt aus</span>
-    <div class="press-fallback">
-      <span>wallstreet:online</span><span>n-tv</span><span>Finanzblatt</span><span>business-on.de</span>
+  <div class="proofbar">
+    <div class="wrap">
+      <span><b>2×</b> bester Online-Marketer des Jahres</span>
+      <span><b>200.000+</b> erreicht</span>
+      <span>bekannt aus <b>wallstreet:online, n-tv</b></span>
     </div>
   </div>
 
-  <section id="about">
-    <h2>Kurz zu mir</h2>
-    <p>Ich bin Kris Stelljes. Angefangen hab ich am Fließband. Seit über 15 Jahren baue und vermarkte ich digitale Angebote, meine eigenen und die von anderen. In dieser Zeit wurde ich zweimal als Online-Marketer des Jahres ausgezeichnet und habe über verschiedene Kanäle mehr als 200.000 Menschen erreicht. Über meinen Weg — und auch mein <a href="https://vermoegen.org/kris-stelljes-vermoegen/" style="color:inherit;text-decoration:none">Vermögen</a> — wurde dabei von unabhängiger Seite berichtet. Dann war's ein paar Jahre ruhig um mich. Jetzt bin ich zurück. Gerade baue ich meine eigene Marke neu auf und zeige offen, wie ich Wissen und bestehende Angebote Schritt für Schritt in klare digitale Produkte und eine verständliche Vermarktung übersetze. KI nutze ich dabei dort, wo sie die Arbeit schneller und einfacher macht.</p>
+  <section class="block">
+    <div class="wrap">
+      <div class="videowrap">
+        <div class="ph">[ Video einbetten: Gespräch mit Markus Baulig<br>— hier YouTube/Vimeo-Embed einsetzen ]</div>
+      </div>
+      <p class="videolabel">Im Gespräch mit Markus Baulig über meine Anfänge, die Infoprodukt-Zeit und warum ich jetzt wieder sichtbar werde.</p>
+    </div>
   </section>
 
-  <section>
-    <h2>Das Problem ist selten das Wissen.</h2>
-    <p>Die meisten haben etwas Wertvolles — Erfahrung, ein gutes Angebot, echte Ergebnisse. Trotzdem kaufen zu wenige. Nicht, weil das Angebot schlecht ist, sondern weil:</p>
-    <ul class="reasons">
-      <li>in drei Sekunden niemand versteht, was du eigentlich anbietest,</li>
-      <li>dein bestes Wissen in deinem Kopf hängt — statt in einem Produkt, das man kaufen kann,</li>
-      <li>die Vermarktung komplizierter klingt, als das Angebot gut ist,</li>
-      <li>die entscheidenden Schritte zwar bekannt sind, aber nie konsequent passieren.</li>
-    </ul>
-    <p><span class="kicker">Genau da setze ich an.</span> KI ist dabei Werkzeug, nicht Selbstzweck: Sie hilft, Wissen zu strukturieren, Angebote klarer zu machen, Inhalte zu produzieren, Interessenten zu sortieren, Marketing zu automatisieren und vorhandene Kontakte konsequent nachzufassen.</p>
+  <section class="block">
+    <div class="wrap">
+      <h2>Kurz zu mir</h2>
+      <p class="lead">Angefangen habe ich am Fließband.</p>
+      <p>Mit 23 hatte ich mein erstes Millionen-Business im Internet, wurde zweimal bester Online-Marketer des Jahres und habe über verschiedene Kanäle mehr als 200.000 Menschen erreicht. Über meinen Weg vom Fließband nach oben wurde sogar eine Reportage gedreht (international auf Amazon Prime Video).</p>
+      <p>Dann wurde es eine Weile still um mich.</p>
+      <p>Jetzt baue ich wieder auf — und zeige offen, wie aus Wissen, Erfahrung und Abläufen ein klares Angebot wird, das Menschen verstehen und kaufen.</p>
+      <p>Ich komme aus einer Branche, in der viel versprochen wurde. Manches war stark. Manches war zu laut. Genau deshalb baue ich heute anders: transparenter, ruhiger, nachvollziehbarer.</p>
+    </div>
+  </section>
+
+  <section class="block manifest">
+    <div class="wrap">
+      <h2>Das Problem ist <span class="punch">selten das Wissen.</span></h2>
+      <p>Es ist, dass niemand in drei Sekunden versteht, was du anbietest. Die meisten haben etwas Wertvolles — Erfahrung, ein gutes Angebot, echte Ergebnisse. Trotzdem kaufen zu wenige.</p>
+      <p>Ich glaube an Substanz, die man kaufen kann — nicht an Versprechen, die keiner einlöst.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="wrap">
+      <h2>Was ich heute baue</h2>
+      <p>Aus deinem Wissen und deinen Abläufen wird ein klares Angebot, ein Funnel und ein System, das verkauft — Schritt für Schritt, nachvollziehbar.</p>
+      <p>KI nutze ich dabei als Hebel, nicht als Selbstzweck: Sie hilft, Wissen zu strukturieren, Angebote klarer zu machen und Marketing zu automatisieren. Erst die Substanz, dann die Hebel.</p>
+    </div>
+  </section>
+
+  <section class="news" id="newsletter">
+    <div class="wrap">
+      <h2>Der Wiederaufbau</h2>
+      <p class="promise">Jede Woche ein ehrlicher Einblick in den Wiederaufbau: Angebote, Funnels, Systeme, Zahlen, Entscheidungen, Learnings — und das, was wirklich verkauft.</p>
+      <!-- TODO: action= auf ActiveCampaign-Formular setzen, Feld-Name angleichen -->
+      <form class="signup" action="#" method="post">
+        <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required>
+        <button class="btn" type="submit">Newsletter lesen</button>
+      </form>
+      <p class="small">Kein Spam. Abmeldung jederzeit mit einem Klick.</p>
+    </div>
   </section>
 
   <footer>
-    <a href="/impressum">Impressum</a>
-    <a href="/datenschutz">Datenschutzerklärung</a>
+    <div class="wrap">
+      <span>© <span id="y"></span> Kris Stelljes</span>
+      <span><a href="/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="/datenschutz.html">Datenschutz</a></span>
+    </div>
   </footer>
+  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
 
-</div>
-
-<script>
-(function(){
-  window.dataLayer = window.dataLayer || [];
-  function track(e,d){ window.dataLayer.push(Object.assign({event:e}, d||{})); }
-  var SRC_MAP={'legacy-youtube':'LEGACY_YOUTUBE','youtube':'LEGACY_YOUTUBE','instagram':'INSTAGRAM','ig':'INSTAGRAM','email':'EMAIL','mail':'EMAIL','direct':'DIRECT'};
-  function getParam(n){ return new URLSearchParams(location.search).get(n); }
-  function cookie(n,v){ if(v!==undefined){document.cookie=n+'='+encodeURIComponent(v)+';path=/;max-age=15552000;samesite=lax';return v;} var m=document.cookie.match('(^|;)\\s*'+n+'\\s*=\\s*([^;]+)'); return m?decodeURIComponent(m.pop()):null; }
-  var raw=(getParam('source')||getParam('utm_source')||'').toLowerCase();
-  var source=SRC_MAP[raw]||(raw?'OTHER':'DIRECT');
-  var firstTouch=cookie('ks_src'); if(!firstTouch){ firstTouch=cookie('ks_src',source); }
-  var device=(window.matchMedia&&window.matchMedia('(max-width:768px)').matches)?'mobile':'desktop';
-  if(source==='LEGACY_YOUTUBE'){ document.getElementById('yt-note').classList.add('on'); }
-  track('page_view',{source:source,first_touch_source:firstTouch,device:device});
-  window.addEventListener('error',function(e){ track('js_error',{message:(e&&e.message)||'unknown',source:source}); });
-})();
-</script>
 </body>
 </html>
