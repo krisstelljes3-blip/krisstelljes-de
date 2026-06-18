@@ -86,12 +86,27 @@
   .manifest .punch{color:var(--accent)}
 
   .news{background:var(--bg2);padding:68px 0}
-  .news h2{font-size:clamp(26px,4.5vw,35px);margin-bottom:14px}
+  .news-label{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px;font-weight:600}
+  .news h2{font-size:clamp(26px,4.5vw,35px);margin-bottom:14px;font-family:Georgia,"Times New Roman",serif}
   .news .promise{color:#dfe4ee;max-width:620px;margin-bottom:28px;font-size:18px}
-  form.signup{display:flex;flex-wrap:wrap;gap:12px;max-width:520px}
-  form.signup input{flex:1 1 260px;padding:15px 16px;border-radius:8px;border:1px solid var(--line);background:#0a0c10;color:var(--ink);font-size:16px}
-  form.signup input::placeholder{color:#6f7686}
-  .news .small{font-size:12px;color:var(--muted);margin-top:14px}
+
+  .magnet-box{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:10px;padding:28px 32px;margin-bottom:32px;max-width:640px}
+  .magnet-title{font-size:18px;font-weight:700;color:var(--accent);margin-bottom:8px}
+  .magnet-anti{font-size:14px;color:var(--muted);margin-bottom:20px;font-style:italic}
+  .bullets{list-style:none;margin-bottom:20px}
+  .bullets li{padding:9px 0 9px 22px;position:relative;color:#dfe4ee;font-size:15px;border-bottom:1px solid rgba(255,255,255,.05)}
+  .bullets li:last-child{border-bottom:0}
+  .bullets li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:700}
+  .newsletter-bridge{font-size:14px;color:var(--muted);line-height:1.6}
+  .newsletter-bridge strong{color:var(--ink)}
+
+  form.signup{display:flex;flex-wrap:wrap;gap:12px;max-width:540px;margin-bottom:14px}
+  form.signup input[type="email"]{flex:1 1 260px;padding:15px 16px;border-radius:8px;border:1px solid var(--line);background:#0a0c10;color:var(--ink);font-size:16px}
+  form.signup input[type="email"]::placeholder{color:#6f7686}
+  form.signup .btn{white-space:nowrap}
+  .news .small{font-size:13px;color:var(--muted);margin-bottom:16px;max-width:540px}
+  .news .small a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+  .proof-micro{font-size:12px;color:#5a6478;letter-spacing:.02em}
 
   footer{padding:38px 0;font-size:13px;color:var(--muted)}
   footer a{color:var(--muted)}
@@ -111,6 +126,7 @@
         <span>Jetzt baue ich wieder öffentlich auf.</span>
       </h1>
       <p class="sub">Ich zeige dir, wie aus deinem Wissen ein Angebot wird, das man in drei Sekunden versteht und als relevant erkennt. 2× bester Online-Marketer des Jahres, 200.000+ erreicht — diesmal offen dokumentiert.</p>
+      <a href="#newsletter" class="btn">Mein Angebot klar formulieren →</a>
     </div>
   </header>
 
@@ -158,8 +174,46 @@
     </div>
   </section>
 
-  <!-- NEWSLETTER (Der Wiederaufbau) — vorerst entfernt auf Kris-Wunsch (kein totes Formular live);
-       kommt mit ActiveCampaign + CRO direkt danach zurück. -->
+  <!-- NEWSLETTER — Der Wiederaufbau — ActiveCampaign Form ID 1, native proc.php DOI -->
+  <section class="news" id="newsletter">
+    <div class="wrap">
+      <p class="news-label">DER WIEDERAUFBAU</p>
+      <h2>Formuliere dein Angebot so, dass man in drei Sekunden versteht, warum es relevant ist.</h2>
+      <p class="promise">Hol dir das <strong>Angebots-Klarheits-Worksheet</strong> — ein kompakter 1-Seiter für Experten, Berater und Dienstleister, die aus gutem Wissen eine Angebotsaussage machen wollen, die auf LinkedIn, ihrer Website und im Gespräch sofort verständlich ist.</p>
+
+      <div class="magnet-box">
+        <p class="magnet-title">Das Angebots-Klarheits-Worksheet</p>
+        <p class="magnet-anti">Kein 47-seitiges E-Book. Kein alter Seminar-Download.<br>Ein aktuelles Arbeitsblatt aus meinem Wiederaufbau — in etwa 15 Minuten anwendbar.</p>
+        <ul class="bullets">
+          <li>Die drei Fragen, mit denen du Zielgruppe, konkretes Ergebnis und Unterschied zu Alternativen in eine klare Aussage bringst.</li>
+          <li>Einen einfachen Sprachtest, der zeigt, welche Wörter dein Angebot schwammig, austauschbar oder erklärungsbedürftig machen.</li>
+          <li>Eine Vorlage für drei Sätze, die du sofort in deiner LinkedIn-Bio, auf deiner Website und in Erstgesprächen testen kannst.</li>
+          <li>Ein konkretes Beispiel, wie aus einer Expertenbeschreibung ein Angebot wird, das relevant klingt — statt nach „muss ich erst mal verstehen".</li>
+        </ul>
+        <p class="newsletter-bridge">Und danach bekommst du einmal pro Woche <strong>Der Wiederaufbau</strong>: Angebote, Funnels, Systeme, Fehler, Zahlen und Entscheidungen aus meinem echten Comeback. Ohne täglichen Lärm. Ohne Motivationsphrasen. Ohne Umsatztheater.</p>
+      </div>
+
+      <!-- Danke-Hinweis nach DOI-Bestätigung -->
+      <div id="confirmed-msg" style="display:none;background:rgba(108,124,255,.12);border:1px solid var(--accent);border-radius:8px;padding:20px 24px;margin-bottom:24px;">
+        <strong style="color:var(--accent)">Fast geschafft.</strong> Schau in dein Postfach und bestätige deine E-Mail-Adresse — dann kommt das Worksheet direkt zu dir.
+      </div>
+
+      <form class="signup" action="https://krisstelljes3.activehosted.com/proc.php" method="post" id="optin-form">
+        <input type="hidden" name="u" value="1">
+        <input type="hidden" name="f" value="1">
+        <input type="hidden" name="s" value="">
+        <input type="hidden" name="c" value="0">
+        <input type="hidden" name="m" value="0">
+        <input type="hidden" name="act" value="sub">
+        <input type="hidden" name="v" value="2">
+        <input type="hidden" name="or" id="referrer-field" value="">
+        <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required autocomplete="email">
+        <button type="submit" class="btn">Mein Angebots-Klarheits-Worksheet anfordern</button>
+      </form>
+      <p class="small">Erst bestätigst du deine E-Mail-Adresse. Danach kommt das Worksheet direkt in dein Postfach. Anschließend maximal eine Ausgabe von <em>Der Wiederaufbau</em> pro Woche. Abmeldung jederzeit mit einem Klick. <a href="/datenschutz.html">Datenschutzhinweise</a>.</p>
+      <p class="proof-micro">15 Jahre Online-Marketing · 2× bester Online-Marketer des Jahres · 200.000+ Menschen erreicht</p>
+    </div>
+  </section>
 
   <footer>
     <div class="wrap">
@@ -167,7 +221,21 @@
       <span><a href="/impressum.html">Impressum</a> &nbsp;·&nbsp; <a href="/datenschutz.html">Datenschutz</a></span>
     </div>
   </footer>
-  <script>document.getElementById('y').textContent=new Date().getFullYear();</script>
+  <script>
+    document.getElementById('y').textContent=new Date().getFullYear();
+    // Referrer für AC
+    var rf=document.getElementById('referrer-field');
+    if(rf) rf.value=document.referrer||'';
+    // Confirmed-State nach DOI-Redirect
+    if(window.location.search.indexOf('confirmed=1')>-1){
+      var msg=document.getElementById('confirmed-msg');
+      var form=document.getElementById('optin-form');
+      if(msg){msg.style.display='block';}
+      if(form){form.style.display='none';}
+      var ns=document.getElementById('newsletter');
+      if(ns){setTimeout(function(){ns.scrollIntoView({behavior:'smooth'});},200);}
+    }
+  </script>
 
 </body>
 </html>
