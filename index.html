@@ -186,15 +186,7 @@
         <strong style="color:var(--accent)">Fast geschafft.</strong> Schau in dein Postfach und bestätige deine E-Mail-Adresse — dann bist du dabei.
       </div>
 
-      <form class="signup" action="https://krisstelljes3.activehosted.com/proc.php" method="post" id="optin-form">
-        <input type="hidden" name="u" value="1">
-        <input type="hidden" name="f" value="1">
-        <input type="hidden" name="s" value="">
-        <input type="hidden" name="c" value="0">
-        <input type="hidden" name="m" value="0">
-        <input type="hidden" name="act" value="sub">
-        <input type="hidden" name="v" value="2">
-        <input type="hidden" name="or" id="referrer-field" value="">
+      <form class="signup" id="optin-form">
         <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required autocomplete="email">
         <button type="submit" class="btn">Kostenlos reinschauen →</button>
       </form>
@@ -211,10 +203,7 @@
   </footer>
   <script>
     document.getElementById('y').textContent=new Date().getFullYear();
-    // Referrer für AC
-    var rf=document.getElementById('referrer-field');
-    if(rf) rf.value=document.referrer||'';
-    // Confirmed-State nach DOI-Redirect
+    // Confirmed-State nach DOI-Klick (AC leitet zu ?confirmed=1 weiter)
     if(window.location.search.indexOf('confirmed=1')>-1){
       var msg=document.getElementById('confirmed-msg');
       var form=document.getElementById('optin-form');
@@ -223,18 +212,29 @@
       var ns=document.getElementById('newsletter');
       if(ns){setTimeout(function(){ns.scrollIntoView({behavior:'smooth'});},200);}
     }
-    // Form-Submit: Inline-Bestätigung statt AC-Redirect
+    // Form-Submit: via /api/subscribe → DOI-Mail wird korrekt getriggert
     var optinForm=document.getElementById('optin-form');
     if(optinForm){
       optinForm.addEventListener('submit',function(e){
         e.preventDefault();
-        var fd=new FormData(this);
-        fetch(this.action,{method:'POST',body:new URLSearchParams(fd),mode:'no-cors'});
-        var confirmMsg=document.getElementById('confirmed-msg');
-        if(confirmMsg){confirmMsg.style.display='block';}
-        this.style.display='none';
-        var ns2=document.getElementById('newsletter');
-        if(ns2){ns2.scrollIntoView({behavior:'smooth'});}
+        var emailVal=this.querySelector('input[type="email"]').value;
+        var btn=this.querySelector('button[type="submit"]');
+        btn.disabled=true; btn.textContent='Einen Moment…';
+        fetch('/api/subscribe',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({email:emailVal})
+        }).then(function(r){
+          var confirmMsg=document.getElementById('confirmed-msg');
+          if(confirmMsg){confirmMsg.style.display='block';}
+          optinForm.style.display='none';
+          var ns2=document.getElementById('newsletter');
+          if(ns2){ns2.scrollIntoView({behavior:'smooth'});}
+        }).catch(function(){
+          btn.disabled=false;
+          btn.textContent='Kostenlos reinschauen →';
+          alert('Bitte versuche es erneut.');
+        });
       });
     }
   </script>
