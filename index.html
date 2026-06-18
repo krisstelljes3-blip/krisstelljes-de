@@ -101,7 +101,7 @@
   .newsletter-bridge strong{color:var(--ink)}
 
   form.signup{display:flex;flex-wrap:wrap;gap:12px;max-width:540px;margin-bottom:14px}
-  form.signup input[type="email"]{flex:1 1 260px;padding:15px 16px;border-radius:8px;border:1px solid var(--line);background:#0a0c10;color:var(--ink);font-size:16px}
+  form.signup input[type="text"],form.signup input[type="email"]{flex:1 1 200px;padding:15px 16px;border-radius:8px;border:1px solid var(--line);background:#0a0c10;color:var(--ink);font-size:16px}
   form.signup input[type="email"]::placeholder{color:#6f7686}
   form.signup .btn{white-space:nowrap}
   .news .small{font-size:13px;color:var(--muted);margin-bottom:16px;max-width:540px}
@@ -187,6 +187,7 @@
       </div>
 
       <form class="signup" id="optin-form">
+        <input type="text" name="firstName" placeholder="Dein Vorname" required autocomplete="given-name">
         <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required autocomplete="email">
         <button type="submit" class="btn">Kostenlos reinschauen →</button>
       </form>
@@ -218,12 +219,13 @@
       optinForm.addEventListener('submit',function(e){
         e.preventDefault();
         var emailVal=this.querySelector('input[type="email"]').value;
+        var firstNameVal=this.querySelector('input[name="firstName"]').value;
         var btn=this.querySelector('button[type="submit"]');
         btn.disabled=true; btn.textContent='Einen Moment…';
         fetch('/api/subscribe',{
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({email:emailVal})
+          body:JSON.stringify({email:emailVal,firstName:firstNameVal})
         }).then(function(r){
           var confirmMsg=document.getElementById('confirmed-msg');
           if(confirmMsg){confirmMsg.style.display='block';}
