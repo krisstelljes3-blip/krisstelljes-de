@@ -223,6 +223,20 @@
       var ns=document.getElementById('newsletter');
       if(ns){setTimeout(function(){ns.scrollIntoView({behavior:'smooth'});},200);}
     }
+    // Form-Submit: Inline-Bestätigung statt AC-Redirect
+    var optinForm=document.getElementById('optin-form');
+    if(optinForm){
+      optinForm.addEventListener('submit',function(e){
+        e.preventDefault();
+        var fd=new FormData(this);
+        fetch(this.action,{method:'POST',body:new URLSearchParams(fd),mode:'no-cors'});
+        var confirmMsg=document.getElementById('confirmed-msg');
+        if(confirmMsg){confirmMsg.style.display='block';}
+        this.style.display='none';
+        var ns2=document.getElementById('newsletter');
+        if(ns2){ns2.scrollIntoView({behavior:'smooth'});}
+      });
+    }
   </script>
 
 </body>
