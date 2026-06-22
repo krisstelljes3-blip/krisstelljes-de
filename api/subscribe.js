@@ -1,45 +1,41 @@
-// Vercel Serverless Function: Newsletter Subscribe via ActiveCampaign FORM (proc.php)
-// Reicht den Eintrag an das AC-Formular (id 1, „Der Wiederaufbau Newsletter Opt-in") weiter.
-// Dieses Formular hat Double-Opt-In aktiviert → AC verschickt die Bestätigungsmail nativ.
-// (Ersetzt den v3-API-Weg contact/sync + contactLists status=2, der KEINE DOI-Mail auslöst.)
+// Vercel Serverless Function: Newsletter Subscribe via ActiveCampaign v3-API
+// Legt den Kontakt an + setzt ihn auf Liste 4 "Der Wiederaufbau" (status=1 = aktiv/abonniert).
+// status=1 triggert die AC-Automation "Kontakt abonniert Liste" -> Welcome-Mail wird sofort gesendet.
+// Kein echtes DOI (AC Lite hat keinen nativen DOI-Toggle) - Entscheidung 22.06.2026.
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://krisstelljes.de');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
-
   const { email, firstName } = req.body || {};
   if (!email || !email.includes('@')) {
     return res.status(400).json({ error: 'Valid email required' });
   }
-
-  // Versteckte Felder aus dem offiziellen AC-Embed-Code von Formular 1.
-  const params = new URLSearchParams();
-  params.append('u', '1');
-  params.append('f', '1');
-  params.append('s', '');
-  params.append('c', '0');
-  params.append('m', '0');
-  params.append('act', 'sub');
-  params.append('v', '2');
-  params.append('or', '5f8a27e6-dfc8-4b98-afcb-bd9ce8b012e6');
-  params.append('email', email);
-  if (firstName) params.append('firstname', firstName);
-
+  const AC_KEY = process.env.AC_API_KEY;
+  const AC_URL = 'https://krisstelljes3.api-us1.com/api/3';
+  if (!AC_KEY) {
+    console.error('AC_API_KEY not set');
+    return res.status(500).json({ error: 'Not configured' });
+  }
   try {
-    const acRes = await fetch('https://krisstelljes3.activehosted.com/proc.php?jsonp=true', {
+    const syncRes = await fetch(`${AC_URL}/contact/sync`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json'
-      },
-      body: params.toString()
+      headers: { 'Content-Type': 'application/json', 'Api-Token': AC_KEY },
+      body: JSON.stringify({ contact: { email, firstName: firstName || '' } })
     });
-    // AC antwortet mit JSONP; HTTP 200 = angenommen. Inhalt wird nicht benötigt.
-    await acRes.text();
+    const syncData = await syncRes.json();
+    const contactId = syncData.contact && syncData.contact.id;
+    if (!contactId) throw new Error('Contact sync failed: ' + JSON.stringify(syncData));
+    // status=1 = aktiv, triggert Automation + Welcome-Mail
+    await fetch(`${AC_URL}/contactLists`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Api-Token': AC_KEY },
+      body: JSON.stringify({
+        contactList: { list: 4, contact: contactId, status: 1 }
+      })
+    });
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error('Subscribe error:', err.message);
