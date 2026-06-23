@@ -1,42 +1,82 @@
-// Vercel Serverless Function: Newsletter Subscribe via ActiveCampaign v3-API
-// Legt den Kontakt an + setzt ihn auf Liste 4 "Der Wiederaufbau" (status=1 = aktiv/abonniert).
-// status=1 triggert die AC-Automation "Kontakt abonniert Liste" -> Welcome-Mail wird sofort gesendet.
-// Kein echtes DOI (AC Lite hat keinen nativen DOI-Toggle) - Entscheidung 22.06.2026.
+// Vercel Serverless Function: Newsletter Subscribe via ActiveCampaign
+// Nutzt den nativen AC-Form-Endpoint (proc.php), damit der DOI-Flow korrekt ausgeloest wird.
+// Flow: 1) GET /f/1 → CSRF-Token holen. 2) POST proc.php → AC schickt DOI-Mail (Campaign 6).
+// Kontakt landet als status=0 (pending) → Automation 2 feuert erst nach DOI-Bestaetigung.
+
+const AC_FORM_URL = 'https://krisstelljes3.activehosted.com/f/1';
+const AC_PROC_URL = 'https://krisstelljes3.activehosted.com/proc.php';
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', 'https://krisstelljes.de');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
+
   const { email, firstName } = req.body || {};
   if (!email || !email.includes('@')) {
     return res.status(400).json({ error: 'Valid email required' });
   }
-  const AC_KEY = process.env.AC_API_KEY;
-  const AC_URL = 'https://krisstelljes3.api-us1.com/api/3';
-  if (!AC_KEY) {
-    console.error('AC_API_KEY not set');
-    return res.status(500).json({ error: 'Not configured' });
-  }
+
   try {
-    const syncRes = await fetch(`${AC_URL}/contact/sync`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Api-Token': AC_KEY },
-      body: JSON.stringify({ contact: { email, firstName: firstName || '' } })
+    // 1. Formular-Seite laden → CSRF-Token (or) + Session-Cookie extrahieren
+    const formRes = await fetch(AC_FORM_URL, {
+      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; newsletter-signup/1.0)' }
     });
-    const syncData = await syncRes.json();
-    const contactId = syncData.contact && syncData.contact.id;
-    if (!contactId) throw new Error('Contact sync failed: ' + JSON.stringify(syncData));
-    // status=1 = aktiv, triggert Automation + Welcome-Mail
-    await fetch(`${AC_URL}/contactLists`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Api-Token': AC_KEY },
-      body: JSON.stringify({
-        contactList: { list: 4, contact: contactId, status: 1 }
-      })
+    const html = await formRes.text();
+
+    // CSRF-Token aus dem Hidden-Field name="or"
+    const orMatch = html.match(/name="or"\s+value="([^"]+)"/);
+    const orValue = orMatch ? orMatch[1] : '';
+
+    // Session-Cookie weiterleiten (PHPSESSID + cmp-Cookie)
+    const rawCookies = formRes.headers.get('set-cookie') || '';
+    const cookieHeader = rawCookies
+      .split(/,(?=\s*\w+=)/)
+      .map(c => c.split(';')[0].trim())
+      .join('; ');
+
+    // 2. Formular via proc.php einreichen → DOI-Mail wird ausgeloest
+    // field[1]=de ist Pflichtfeld (Bevorzugte Sprache, required im Formular)
+    const formData = new URLSearchParams({
+      u: '1',
+      f: '1',
+      s: '',
+      c: '0',
+      m: '0',
+      act: 'sub',
+      v: '2',
+      or: orValue,
+      email: email,
+      'field[1]': 'de',
+      'field[FIRSTNAME,0]': firstName || ''
     });
-    return res.status(200).json({ success: true });
+
+    const submitRes = await fetch(AC_PROC_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Origin': 'https://krisstelljes3.activehosted.com',
+        'Referer': AC_FORM_URL,
+        'Cookie': cookieHeader,
+        'User-Agent': 'Mozilla/5.0 (compatible; newsletter-signup/1.0)'
+      },
+      body: formData.toString(),
+      redirect: 'manual'
+    });
+
+    const location = submitRes.headers.get('location') || '';
+
+    // Erfolg: AC leitet auf die Danke-/Bestaetigung-URL weiter
+    if (location.includes('confirmed') || location.includes('krisstelljes.de')) {
+      return res.status(200).json({ success: true });
+    }
+
+    // Fehlschlag: AC leitet zurueck zum Formular (Validierungsfehler)
+    console.error('proc.php redirect:', location, 'status:', submitRes.status);
+    return res.status(500).json({ error: 'Subscription failed (validation)' });
+
   } catch (err) {
     console.error('Subscribe error:', err.message);
     return res.status(500).json({ error: 'Subscription failed' });

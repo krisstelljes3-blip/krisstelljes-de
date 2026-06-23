@@ -1,6 +1,14 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-2TZ0BNWTTV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-2TZ0BNWTTV');
+</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="index,follow">
@@ -181,9 +189,13 @@
       <h2>Ich baue wieder auf. Du schaust zu.</h2>
       <p class="promise">Jede Woche ein ungefilterter Blick hinter die Kulissen — was ich wirklich baue, entscheide und teste.</p>
 
-      <!-- Danke-Hinweis nach DOI-Bestätigung -->
-      <div id="confirmed-msg" style="display:none;background:rgba(108,124,255,.12);border:1px solid var(--accent);border-radius:8px;padding:20px 24px;margin-bottom:24px;">
+      <!-- Hinweis nach Form-Submit: DOI-Mail unterwegs -->
+      <div id="doi-pending-msg" style="display:none;background:rgba(108,124,255,.12);border:1px solid var(--accent);border-radius:8px;padding:20px 24px;margin-bottom:24px;">
         <strong style="color:var(--accent)">Fast geschafft.</strong> Schau in dein Postfach und bestätige deine E-Mail-Adresse — dann bist du dabei.
+      </div>
+      <!-- Hinweis nach echtem DOI-Klick (?confirmed=1 in der URL) -->
+      <div id="confirmed-msg" style="display:none;background:rgba(108,124,255,.12);border:1px solid var(--accent);border-radius:8px;padding:20px 24px;margin-bottom:24px;">
+        <strong style="color:var(--accent)">Du bist dabei.</strong> Gleich bekommst du eine Willkommens-Mail von mir.
       </div>
 
       <form class="signup" id="optin-form">
@@ -227,8 +239,8 @@
           headers:{'Content-Type':'application/json'},
           body:JSON.stringify({email:emailVal,firstName:firstNameVal})
         }).then(function(r){
-          var confirmMsg=document.getElementById('confirmed-msg');
-          if(confirmMsg){confirmMsg.style.display='block';}
+          var doiMsg=document.getElementById('doi-pending-msg');
+          if(doiMsg){doiMsg.style.display='block';}
           optinForm.style.display='none';
           var ns2=document.getElementById('newsletter');
           if(ns2){ns2.scrollIntoView({behavior:'smooth'});}
