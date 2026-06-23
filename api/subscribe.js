@@ -39,6 +39,7 @@ module.exports = async function handler(req, res) {
 
     // 2. Formular via proc.php einreichen → DOI-Mail wird ausgeloest
     // field[1]=de ist Pflichtfeld (Bevorzugte Sprache, required im Formular)
+    // field[] = Vorname (genau so heisst das Feld im nativen AC-Formular-HTML)
     const formData = new URLSearchParams({
       u: '1',
       f: '1',
@@ -50,7 +51,7 @@ module.exports = async function handler(req, res) {
       or: orValue,
       email: email,
       'field[1]': 'de',
-      'field[FIRSTNAME,0]': firstName || ''
+      'field[]': firstName || ''
     });
 
     const submitRes = await fetch(AC_PROC_URL, {
