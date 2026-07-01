@@ -14,7 +14,16 @@ module.exports = async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { email, firstName } = req.body || {};
+  const { email, firstName, website } = req.body || {};
+
+  // Honeypot gegen Bots: Das echte Formular sendet immer ein leeres Feld "website".
+  // Bots fuellen es aus oder lassen es ganz weg. In beiden Faellen tun wir so, als
+  // haette es geklappt (200), legen aber KEINEN Kontakt an und loesen keine DOI-Mail aus.
+  if (typeof website !== 'string' || website.trim() !== '') {
+    console.warn('Honeypot ausgeloest, Anmeldung verworfen:', { email, firstName });
+    return res.status(200).json({ success: true });
+  }
+
   if (!email || !email.includes('@')) {
     return res.status(400).json({ error: 'Valid email required' });
   }

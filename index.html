@@ -201,6 +201,10 @@
       <form class="signup" id="optin-form">
         <input type="text" name="firstName" placeholder="Dein Vorname" required autocomplete="given-name">
         <input type="email" name="email" placeholder="Deine E-Mail-Adresse" required autocomplete="email">
+        <!-- Honeypot gegen Bots: fuer Menschen unsichtbar, wird leer gelassen. Bots fuellen es aus. -->
+        <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden;" tabindex="-1">
+          <label>Bitte dieses Feld leer lassen<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+        </div>
         <button type="submit" class="btn">Kostenlos reinschauen →</button>
       </form>
       <p class="small">Maximal eine E-Mail pro Woche. Abmeldung jederzeit mit einem Klick. <a href="/datenschutz.html">Datenschutzhinweise</a>.</p>
@@ -232,12 +236,14 @@
         e.preventDefault();
         var emailVal=this.querySelector('input[type="email"]').value;
         var firstNameVal=this.querySelector('input[name="firstName"]').value;
+        var hpEl=this.querySelector('input[name="website"]');
+        var websiteVal=hpEl?hpEl.value:'';
         var btn=this.querySelector('button[type="submit"]');
         btn.disabled=true; btn.textContent='Einen Moment…';
         fetch('/api/subscribe',{
           method:'POST',
           headers:{'Content-Type':'application/json'},
-          body:JSON.stringify({email:emailVal,firstName:firstNameVal})
+          body:JSON.stringify({email:emailVal,firstName:firstNameVal,website:websiteVal})
         }).then(function(r){
           var doiMsg=document.getElementById('doi-pending-msg');
           if(doiMsg){doiMsg.style.display='block';}
